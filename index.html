@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head></head>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Advanced Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #181818;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        header {
+            text-align: center;
+            padding: 60px 20px 20px 20px;
+            background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
+            animation: fadeInDown 1s;
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+            letter-spacing: 2px;
+        }
+        
+        header p {
+            margin: 10px 0 0 0;
+            font-size: 1.2rem;
+            color: #d1d1d1;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            background: #232323;
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        nav a {
+            color: #4fc3f7;
+            text-decoration: none;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: #fff;
+        }
+        
+        section {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #232323;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+            padding: 40px 30px;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.7s cubic-bezier(.77, 0, .18, 1);
+        }
+        
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        h2 {
+            color: #4fc3f7;
+            font-size: 2.4rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-shadow: 0 4px 18px rgba(79, 195, 247, 0.25), 0 1px 0 #232323;
+            letter-spacing: 3px;
+            margin-bottom: 28px;
+            border-bottom: 3px solid #4fc3f7;
+            padding-bottom: 10px;
+            background: linear-gradient(90deg, #4fc3f7 0%, #81d4fa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-top: 0;
+            letter-spacing: 1px;
+        }
+        
+        ul.skills {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        
+        ul.skills li {
+            background: #333;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s;
+        }
+        
+        ul.skills li:hover {
+            background: #4fc3f7;
+            color: #232323;
+        }
+        
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+        
+        .project-card {
+            background: #292929;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .project-card img {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            object-fit: cover;
+            height: 140px;
+        }
+        
+        .project-card h3 {
+            margin: 0 0 10px 0;
+            color: #81d4fa;
+        }
+        
+        .project-card .tags {
+            margin: 10px 0 0 0;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .project-card .tag {
+            background: #4fc3f7;
+            color: #232323;
+            border-radius: 4px;
+            padding: 2px 8px;
+            font-size: 0.85em;
+        }
+        
+        .project-card a {
+            margin-top: auto;
+        }
+        
+        .timeline {
+            position: relative;
+            margin: 30px 0 0 0;
+            padding-left: 30px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #4fc3f7;
+            border-radius: 2px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: -2px;
+            top: 8px;
+            width: 16px;
+            height: 16px;
+            background: #232323;
+            border: 4px solid #4fc3f7;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .timeline-content {
+            padding-left: 32px;
+        }
+        
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            align-items: center;
+        }
+        
+        .about-photo {
+            flex: 0 0 160px;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: #292929;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .about-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 220px;
+        }
+        
+        .certificates-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .certificate-card {
+            background: #292929;
+            border-radius: 8px;
+            padding: 16px 20px;
+            min-width: 220px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+        }
+        
+        .certificate-card h4 {
+            margin: 0 0 6px 0;
+            color: #4fc3f7;
+        }
+        
+        .certificate-card p {
+            margin: 0;
+            font-size: 0.95em;
+            color: #b0b0b0;
+        }
+        
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            padding: 10px;
+            border-radius: 6px;
+            border: none;
+            font-size: 1rem;
+            background: #333;
+            color: #fff;
+            resize: none;
+        }
+        
+        .contact-form button {
+            background: #4fc3f7;
+            color: #232323;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .contact-form button:hover {
+            background: #0288d1;
+            color: #fff;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 18px;
+            margin-top: 18px;
+        }
+        
+        .social-links a {
+            color: #4fc3f7;
+            font-size: 1.6em;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: #fff;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .about-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .about-photo {
+                margin-bottom: 18px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            section {
+                padding: 20px 8px;
+            }
+            header h1 {
+                font-size: 2rem;
+            }
+            nav {
+                gap: 12px;
+            }
+            .projects {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <!-- Font Awesome for social icons -->
+    <script src="https://kit.fontawesome.com/7e5e3c7e2e.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Yusof Parvej Islam</h1>
+        <p>Full Stack Developer | JavaScript Enthusiast | Node.js Expert</p>
+        <div class="social-links">
+            <a href="https://github.com/" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:your@email.com" title="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+    </header>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#certificates">Certificates</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <div class="about-photo">
+                <img src="D:\html\portfolio\mypic.jpg.jpg" alt="Profile Photo">
+            </div>
+            <div class="about-text">
+                <p>
+                    Hi! I'm <strong>Yusof Parvej Islam</strong>, I'm a 3rd-year B.Tech Computer Science student passionate about software development, data structures, and AI. I enjoy solving real-world problems through clean code and scalable solutions.
+                    Currently exploring full-stack development and machine learning projects.
+                </p>
+                <p>
+                    I enjoy collaborating on open-source projects, mentoring junior developers, and constantly learning new things. When I'm not coding, you can find me reading tech blogs, hiking, or playing chess.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <h2>Education</h2>
+        <div class="timeline" id="education-list"></div>
+    </section>
+
+    <section id="skills">
+        <h2>Skills</h2>
+        <ul class="skills" id="skills-list"></ul>
+    </section>
+
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="projects" id="projects-list"></div>
+    </section>
+
+    <section id="certificates">
+        <h2>Certificates</h2>
+        <ul class="certificates-list" id="certificates-list"></ul>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <form class="contact-form" id="contact-form">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+            <button type="submit">Send</button>
+            <span id="form-status"></span>
+        </form>
+    </section>
+
+    <footer style="text-align:center; color:#aaa; padding:24px 0 12px 0;">
+        &copy; <span id="year"></span> Your Name. All rights reserved.
+    </footer>
+
+    <script>
+        // JSON data for dynamic content
+        const data = {
+            education: [{
+                degree: "B.Tech in Computer Science",
+                institution: "Swami Vivekanda University",
+                year: "2023 - 2027"
+            }],
+            skills: [
+                "JavaScript", "Node.js", "React", "HTML5", "CSS3", "Java", "Python", "C"
+            ],
+            concepts: [
+                "Data Structures", "Algorithms", "OOP"
+            ],
+            projects: [{
+                title: "Portfolio Website",
+                description: "A personal portfolio website built with React, Node.js, and Express.",
+                link: "#",
+                image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80",
+                tags: ["React", "Node.js", "Express"]
+            }, {
+                title: "E-commerce Platform",
+                description: "Full-stack e-commerce application using MERN stack.",
+                link: "#",
+                image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80",
+                tags: ["MongoDB", "Express", "React", "Node.js"]
+            }, {
+                title: "Chat Application",
+                description: "Real-time chat app using Socket.io and Node.js.",
+                link: "#",
+                image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
+                tags: ["Socket.io", "Node.js", "WebSockets"]
+            }, {
+                title: "Task Manager API",
+                description: "RESTful API for managing tasks, built with Node.js and MongoDB.",
+                link: "#",
+                image: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80",
+                tags: ["Node.js", "MongoDB", "REST API"]
+            }],
+            certificates: [{
+                name: "JavaScript Algorithms and Data Structures",
+                issuer: "freeCodeCamp",
+                year: "2021",
+                url: "#"
+            }, {
+                name: "Node.js: The Complete Guide",
+                issuer: "Udemy",
+                year: "2022",
+                url: "#"
+            }, {
+                name: "React - The Complete Guide",
+                issuer: "Udemy",
+                year: "2022",
+                url: "#"
+            }, {
+                name: "MongoDB for Developers",
+                issuer: "MongoDB University",
+                year: "2023",
+                url: "#"
+            }]
+        };
+
+        // Populate Education (Timeline)
+        const eduList = document.getElementById('education-list');
+        data.education.forEach(edu => {
+            const item = document.createElement('div');
+            item.className = 'timeline-item';
+            item.innerHTML = `
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <strong>${edu.degree}</strong> - ${edu.institution} <span style="color:#aaa;">(${edu.year})</span>
+                    <div style="color:#b0b0b0; font-size:0.97em; margin-top:4px;">${edu.details}</div>
+                </div>
+            `;
+            eduList.appendChild(item);
+        });
+
+        // Populate Skills
+        const skillsList = document.getElementById('skills-list');
+        data.skills.forEach(skill => {
+            const li = document.createElement('li');
+            li.textContent = skill;
+            skillsList.appendChild(li);
+        });
+
+        // Populate Projects
+        const projectsList = document.getElementById('projects-list');
+        data.projects.forEach(proj => {
+                    const div = document.createElement('div');
+                    div.className = 'project-card';
+                    div.innerHTML = `
+                <img src="${proj.image}" alt="${proj.title}">
+                <h3>${proj.title}</h3>
+                <p>${proj.description}</p>
+                <div class="tags">
+                    ${proj.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                </div>
+                <a href="${proj.link}" target="_blank" style="color:#4fc3f7;text-decoration:underline; margin-top:10px;">View Project</a>
+            `;
+            projectsList.appendChild(div);
+        });
+
+        // Populate Certificates
+        const certList = document.getElementById('certificates-list');
+        data.certificates.forEach(cert => {
+            const li = document.createElement('li');
+            li.className = 'certificate-card';
+            li.innerHTML = `
+                <h4>${cert.name}</h4>
+                <p>${cert.issuer} <span style="color:#4fc3f7;">(${cert.year})</span></p>
+                <a href="${cert.url}" target="_blank" style="color:#4fc3f7;text-decoration:underline;">Show Certificate</a>
+            `;
+            certList.appendChild(li);
+        });
+
+        // Section Animation on Scroll
+        const sections = document.querySelectorAll('section');
+        function revealSections() {
+            const triggerBottom = window.innerHeight * 0.85;
+            sections.forEach(sec => {
+                const secTop = sec.getBoundingClientRect().top;
+                if (secTop < triggerBottom) {
+                    sec.classList.add('visible');
+                }
+            });
+        }
+        window.addEventListener('scroll', revealSections);
+        window.addEventListener('load', revealSections);
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href.startsWith('#')) {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Contact Form (Node.js backend required for real sending)
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('form-status').textContent = "Sending...";
+            setTimeout(() => {
+                document.getElementById('form-status').textContent = "Message sent! (Demo only)";
+                this.reset();
+            }, 1200);
+        });
+
+        // Footer year
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>
