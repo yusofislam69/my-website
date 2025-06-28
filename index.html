@@ -1,584 +1,897 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head></head>
-
 <head>
-    <meta charset="UTF-8">
-    <title>Advanced Portfolio</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background: #181818;
-            color: #fff;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-        }
-        
-        header {
-            text-align: center;
-            padding: 60px 20px 20px 20px;
-            background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
-            animation: fadeInDown 1s;
-        }
-        
-        header h1 {
-            margin: 0;
-            font-size: 3rem;
-            letter-spacing: 2px;
-        }
-        
-        header p {
-            margin: 10px 0 0 0;
-            font-size: 1.2rem;
-            color: #d1d1d1;
-        }
-        
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 32px;
-            background: #232323;
-            padding: 16px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-        }
-        
-        nav a {
-            color: #4fc3f7;
-            text-decoration: none;
-            font-weight: bold;
-            letter-spacing: 1px;
-            transition: color 0.3s;
-        }
-        
-        nav a:hover {
-            color: #fff;
-        }
-        
-        section {
-            max-width: 900px;
-            margin: 40px auto;
-            background: #232323;
-            border-radius: 16px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
-            padding: 40px 30px;
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.7s cubic-bezier(.77, 0, .18, 1);
-        }
-        
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        h2 {
-            color: #4fc3f7;
-            font-size: 2.4rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            text-shadow: 0 4px 18px rgba(79, 195, 247, 0.25), 0 1px 0 #232323;
-            letter-spacing: 3px;
-            margin-bottom: 28px;
-            border-bottom: 3px solid #4fc3f7;
-            padding-bottom: 10px;
-            background: linear-gradient(90deg, #4fc3f7 0%, #81d4fa 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-top: 0;
-            letter-spacing: 1px;
-        }
-        
-        ul.skills {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-        
-        ul.skills li {
-            background: #333;
-            padding: 10px 18px;
-            border-radius: 8px;
-            font-weight: bold;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            transition: background 0.3s;
-        }
-        
-        ul.skills li:hover {
-            background: #4fc3f7;
-            color: #232323;
-        }
-        
-        .projects {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 24px;
-        }
-        
-        .project-card {
-            background: #292929;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
-            transition: transform 0.3s;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-        
-        .project-card img {
-            width: 100%;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            object-fit: cover;
-            height: 140px;
-        }
-        
-        .project-card h3 {
-            margin: 0 0 10px 0;
-            color: #81d4fa;
-        }
-        
-        .project-card .tags {
-            margin: 10px 0 0 0;
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        
-        .project-card .tag {
-            background: #4fc3f7;
-            color: #232323;
-            border-radius: 4px;
-            padding: 2px 8px;
-            font-size: 0.85em;
-        }
-        
-        .project-card a {
-            margin-top: auto;
-        }
-        
-        .timeline {
-            position: relative;
-            margin: 30px 0 0 0;
-            padding-left: 30px;
-        }
-        
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 10px;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: #4fc3f7;
-            border-radius: 2px;
-        }
-        
-        .timeline-item {
-            position: relative;
-            margin-bottom: 30px;
-        }
-        
-        .timeline-item:last-child {
-            margin-bottom: 0;
-        }
-        
-        .timeline-dot {
-            position: absolute;
-            left: -2px;
-            top: 8px;
-            width: 16px;
-            height: 16px;
-            background: #232323;
-            border: 4px solid #4fc3f7;
-            border-radius: 50%;
-            z-index: 1;
-        }
-        
-        .timeline-content {
-            padding-left: 32px;
-        }
-        
-        .about-content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 32px;
-            align-items: center;
-        }
-        
-        .about-photo {
-            flex: 0 0 160px;
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            background: #292929;
-            overflow: hidden;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
-        }
-        
-        .about-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .about-text {
-            flex: 1;
-            min-width: 220px;
-        }
-        
-        .certificates-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 18px;
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-        
-        .certificate-card {
-            background: #292929;
-            border-radius: 8px;
-            padding: 16px 20px;
-            min-width: 220px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-        }
-        
-        .certificate-card h4 {
-            margin: 0 0 6px 0;
-            color: #4fc3f7;
-        }
-        
-        .certificate-card p {
-            margin: 0;
-            font-size: 0.95em;
-            color: #b0b0b0;
-        }
-        
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        
-        .contact-form input,
-        .contact-form textarea {
-            padding: 10px;
-            border-radius: 6px;
-            border: none;
-            font-size: 1rem;
-            background: #333;
-            color: #fff;
-            resize: none;
-        }
-        
-        .contact-form button {
-            background: #4fc3f7;
-            color: #232323;
-            border: none;
-            padding: 12px;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        
-        .contact-form button:hover {
-            background: #0288d1;
-            color: #fff;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 18px;
-            margin-top: 18px;
-        }
-        
-        .social-links a {
-            color: #4fc3f7;
-            font-size: 1.6em;
-            transition: color 0.3s;
-        }
-        
-        .social-links a:hover {
-            color: #fff;
-        }
-        
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @media (max-width: 900px) {
-            .about-content {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .about-photo {
-                margin-bottom: 18px;
-            }
-        }
-        
-        @media (max-width: 600px) {
-            section {
-                padding: 20px 8px;
-            }
-            header h1 {
-                font-size: 2rem;
-            }
-            nav {
-                gap: 12px;
-            }
-            .projects {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-    <!-- Font Awesome for social icons -->
-    <script src="https://kit.fontawesome.com/7e5e3c7e2e.js" crossorigin="anonymous"></script>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Index - iPortfolio Bootstrap Template</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Main CSS File -->
+    <link href="assets/css/main.css" rel="stylesheet">
+
+    <!-- =======================================================
+  * Template Name: iPortfolio
+  * Template URL: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/
+  * Updated: Jun 29 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
 </head>
 
-<body>
-    <header>
-        <h1>Yusof Parvej Islam</h1>
-        <p>Full Stack Developer | JavaScript Enthusiast | Node.js Expert</p>
-        <div class="social-links">
-            <a href="https://github.com/" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-            <a href="https://linkedin.com/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:your@email.com" title="Email"><i class="fas fa-envelope"></i></a>
+<body class="index-page">
+
+    <header id="header" class="header dark-background d-flex flex-column">
+        <i class="header-toggle d-xl-none bi bi-list"></i>
+
+        <div class="profile-img">
+            <img src="D:\html\portfolio\mypic.jpg.jpg" alt="" class="img-fluid rounded-circle">
         </div>
+
+        <a href="index.html" class="logo d-flex align-items-center justify-content-center">
+            <!-- Uncomment the line below if you also wish to use an image logo -->
+            <!-- <img src="assets/img/logo.png" alt=""> -->
+            <h1 class="sitename">Yusof Parvej Islam</h1>
+        </a>
+
+        <div class="social-links text-center">
+            <a href="https://x.com/parvejyusof?s=21&t=_e3ZB1elKYreq1AW4TDstQ" class="twitter"><i class="bi bi-twitter-x"></i></a>
+            <a href="https://www.facebook.com/share/15LQThcdKn/" class="facebook"><i class="bi bi-facebook"></i></a>
+            <a href="https://www.instagram.com/okaiyusoff?igsh=eTU3enQ1dWpmcHZr" class="instagram"><i class="bi bi-instagram"></i></a>
+
+            <a href="https://www.linkedin.com/in/yusof-islam-472a6735b/" class="linkedin"><i class="bi bi-linkedin"></i></a>
+        </div>
+
+        <nav id="navmenu" class="navmenu">
+            <ul>
+                <li><a href="#hero" class="active"><i class="bi bi-house navicon"></i>Home</a></li>
+                <li><a href="#about"><i class="bi bi-person navicon"></i> About</a></li>
+                <li><a href="#resume"><i class="bi bi-file-earmark-text navicon"></i> Resume</a></li>
+                <li><a href="#portfolio"><i class="bi bi-images navicon"></i> Portfolio</a></li>
+                <li><a href="#services"><i class="bi bi-hdd-stack navicon"></i> Services</a></li>
+                <li class="dropdown"><a href="#"><i class="bi bi-menu-button navicon"></i> <span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                    <ul>
+                        <li><a href="#">Dropdown 1</a></li>
+                        <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                            <ul>
+                                <li><a href="#">Deep Dropdown 1</a></li>
+                                <li><a href="#">Deep Dropdown 2</a></li>
+                                <li><a href="#">Deep Dropdown 3</a></li>
+                                <li><a href="#">Deep Dropdown 4</a></li>
+                                <li><a href="#">Deep Dropdown 5</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Dropdown 2</a></li>
+                        <li><a href="#">Dropdown 3</a></li>
+                        <li><a href="#">Dropdown 4</a></li>
+                    </ul>
+                </li>
+                <li><a href="#contact"><i class="bi bi-envelope navicon"></i> Contact</a></li>
+            </ul>
+        </nav>
+
     </header>
-    <nav>
-        <a href="#about">About</a>
-        <a href="#education">Education</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#certificates">Certificates</a>
-        <a href="#contact">Contact</a>
-    </nav>
 
-    <section id="about">
-        <h2>About Me</h2>
-        <div class="about-content">
-            <div class="about-photo">
-                <img src="mypic.jpg.jpg" alt="Profile Photo">
+    <main class="main">
+
+        <!-- Hero Section -->
+        <section id="hero" class="hero section dark-background">
+
+            <img src="assets/img/hero-bg.jpg" alt="" data-aos="fade-in" class="">
+
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+                <h2>Yusof Parvej Islam</h2>
+                <p>I'm <span class="typed" data-typed-items="Designer, Developer, Freelancer">Designer</span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
             </div>
-            <div class="about-text">
-                <p>
-                    Hi! I'm <strong>Yusof Parvej Islam</strong>, I'm a 3rd-year B.Tech Computer Science student passionate about software development, data structures, and AI. I enjoy solving real-world problems through clean code and scalable solutions.
-                    Currently exploring full-stack development and machine learning projects.
-                </p>
-                <p>
-                    I enjoy collaborating on open-source projects, mentoring junior developers, and constantly learning new things. When I'm not coding, you can find me reading tech blogs, hiking, or playing chess.
-                </p>
+
+        </section>
+        <!-- /Hero Section -->
+
+        <!-- About Section -->
+        <section id="about" class="about section">
+
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+                <h2>About</h2>
+                <p>A passionate Computer Science Engineering student with a strong foundation in software development, data structures, algorithms, and emerging technologies. Skilled in full-stack development, problem-solving, and working in collaborative
+                    environments. Eager to contribute to impactful tech solutions and continuously grow in the ever-evolving tech landscape.</p>
+            </div>
+            <!-- End Section Title -->
+
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+                <div class="row gy-4 justify-content-center">
+                    <div class="col-lg-4">
+                        <img src="assets/img/my-profile-img.jpg" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-lg-8 content">
+                        <h2>UI/UX Designer &amp; Web Developer.</h2>
+                        <p class="fst-italic py-3">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        </p>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <ul>
+                                    <li><i class="bi bi-chevron-right"></i> <strong>Birthday:</strong> <span>18 june 2003</span></li>
+                                    <li><i class="bi bi-chevron-right"></i> <strong>Website:</strong> <span>www.example.com</span></li>
+                                    <li><i class="bi bi-chevron-right"></i> <strong>Phone:</strong> <span>+91</span></li>
+                                    <li><i class="bi bi-chevron-right"></i> <strong>City:</strong> <span>Kolkata ,India</span></li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-6">
+                                <ul>
+                                    <li><i class="bi bi-chevron-right"></i> <strong>Age:</strong> <span>22</span></li>
+                                    <li><i class="bi bi-chevron-right"></i> <strong>Degree:</strong> <span>Bachelor</span></li>
+                                    <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>yusofislam291@gmail.com</span></li>
+                                    <li><i class="bi bi-chevron-right"></i> <strong>Freelance:</strong> <span>Available</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p class="py-3">
+                            Officiis eligendi itaque labore et dolorum mollitia officiis optio vero. Quisquam sunt adipisci omnis et ut. Nulla accusantium dolor incidunt officia tempore. Et eius omnis. Cupiditate ut dicta maxime officiis quidem quia. Sed et consectetur qui quia
+                            repellendus itaque neque.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+        <!-- /About Section -->
+
+        <!-- Stats Section -->
+        <section id="stats" class="stats section">
+
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+                <div class="row gy-4">
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stats-item">
+                            <i class="bi bi-emoji-smile"></i>
+                            <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
+                            <p><strong>Happy Clients</strong> <span></span></p>
+                        </div>
+                    </div>
+                    <!-- End Stats Item -->
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stats-item">
+                            <i class="bi bi-journal-richtext"></i>
+                            <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
+                            <p><strong>Projects</strong> <span></span></p>
+                        </div>
+                    </div>
+                    <!-- End Stats Item -->
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stats-item">
+                            <i class="bi bi-headset"></i>
+                            <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1" class="purecounter"></span>
+                            <p><strong>Hours Of Support</strong> <span></span></p>
+                        </div>
+                    </div>
+                    <!-- End Stats Item -->
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stats-item">
+                            <i class="bi bi-people"></i>
+                            <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1" class="purecounter"></span>
+                            <p><strong>Hard Workers</strong> <span></span></p>
+                        </div>
+                    </div>
+                    <!-- End Stats Item -->
+
+                </div>
+
+            </div>
+
+        </section>
+        <!-- /Stats Section -->
+
+        <!-- Skills Section -->
+        <section id="skills" class="skills section light-background">
+
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+                <h2>Skills</h2>
+                <p>Programming Languages: Proficient in Java, C, and Python, with a strong grasp of Object-Oriented Programming (OOP) principles. Problem Solving: Solid foundation in data structures and algorithms; able to design and implement efficient
+                    solutions. Software Development: Experienced with coding, debugging, and writing modular programs across multiple languages.</p>
+            </div>
+            <!-- End Section Title -->
+
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+                <div class="row skills-content skills-animation">
+
+                    <div class="col-lg-6">
+
+                        <div class="progress">
+                            <span class="skill"><span>JAVA</span> <i class="val">100%</i></span>
+                            <div class="progress-bar-wrap">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <!-- End Skills Item -->
+
+                        <div class="progress">
+                            <span class="skill"><span>PYTHON</span> <i class="val">90%</i></span>
+                            <div class="progress-bar-wrap">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <!-- End Skills Item -->
+
+                        <div class="progress">
+                            <span class="skill"><span>C</span> <i class="val">75%</i></span>
+                            <div class="progress-bar-wrap">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <!-- End Skills Item -->
+
+                    </div>
+
+                    <div class="col-lg-6">
+
+                        <div class="progress">
+                            <span class="skill"><span>HTML</span> <i class="val">80%</i></span>
+                            <div class="progress-bar-wrap">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <!-- End Skills Item -->
+
+                        <div class="progress">
+                            <span class="skill"><span>CSS</span> <i class="val">90%</i></span>
+                            <div class="progress-bar-wrap">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <!-- End Skills Item -->
+
+                        <div class="progress">
+                            <span class="skill"><span>JAVASCRIPT</span> <i class="val">55%</i></span>
+                            <div class="progress-bar-wrap">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <!-- End Skills Item -->
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+        <!-- /Skills Section -->
+
+        <!-- Resume Section -->
+        <section id="resume" class="resume section">
+
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+                <h2>Resume</h2>
+                <p>Motivated and detail-oriented Computer Science undergraduate with a solid foundation in software development and programming. Proficient in Java, C, and Python, with hands-on experience in object-oriented programming and problem-solving.
+                    Actively exploring web development with HTML and GitHub Pages, combining a methodical learning approach with a passion for creating and publishing user-friendly websites.</p>
+            </div>
+            <!-- End Section Title -->
+
+            <div class="container">
+
+                <div class="row">
+
+                    <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                        <h3 class="resume-title">Sumary</h3>
+
+                        <div class="resume-item pb-0">
+                            <h4>Yusof Parvej Islam</h4>
+                            <p><em>Innovative and deadline-driven Java Developer 3+ years of experience developing user-centered from initial concept to final, polished deliverable.</em></p>
+                            <ul>
+                                <li>Barrackpore-I, Kolkata </li>
+                                <li>+91</li>
+                                <li>yusofislam291@gmail.com</li>
+                            </ul>
+                        </div>
+                        <!-- Edn Resume Item -->
+
+                        <h3 class="resume-title">Education</h3>
+                        <div class="resume-item">
+                            <h4>Btech Computer Science and Engineering</h4>
+                            <h5>2023 - 2027(Expected)</h5>
+                            <p><em>Barrackpore-I, Kolkata</em></p>
+
+                        </div>
+                        <!-- Edn Resume Item -->
+
+                        <div class="resume-item">
+                            <h4>The Heritage School</h4>
+                            <h5>2021 - 2023</h5>
+                            <p><em>Higher Secondary Board</em></p>
+                            <p></p>
+                        </div>
+                        <!-- Edn Resume Item -->
+
+                    </div>
+
+                    <!--<div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+                        <h3 class="resume-title">Professional Experience</h3>
+                        <div class="resume-item">
+                            <h4>Senior graphic design specialist</h4>
+                            <h5>2019 - Present</h5>
+                            <p><em>Experion, New York, NY </em></p>
+                            <ul>
+                                <li>Lead in the design, development, and implementation of the graphic, layout, and production communication materials</li>
+                                <li>Delegate tasks to the 7 members of the design team and provide counsel on all aspects of the project. </li>
+                                <li>Supervise the assessment of all graphic materials in order to ensure quality and accuracy of the design</li>
+                                <li>Oversee the efficient use of production project budgets ranging from $2,000 - $25,000</li>
+                            </ul>
+                        </div>
+                        <!- Edn Resume Item -->
+
+                    <!----
+                    <div class="resume-item">
+                        <h4>Graphic design specialist</h4>
+                        <h5>2017 - 2018</h5>
+                        <p><em>Stepping Stone Advertising, New York, NY</em></p>
+                        <ul>
+                            <li>Developed numerous marketing programs (logos, brochures,infographics, presentations, and advertisements).</li>
+                            <li>Managed up to 5 projects or tasks at a given time while under pressure</li>
+                            <li>Recommended and consulted with clients on the most appropriate graphic design</li>
+                            <li>Created 4+ design presentations and proposals a month for clients and account managers</li>
+                        </ul>
+                    </div>
+                    < Edn Resume Item -->
+
+                </div>
+
+            </div>
+
+            </div>
+
+        </section>
+        <!-- /Resume Section -->
+
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="portfolio section light-background">
+
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+                <h2>Portfolio</h2>
+                <p>Great pains are taken willingly. His needs result in something escaping him indeed. Let him be of sincere character. Anyone at all can desire. And no one who prevents being taken over by another. Because he willingly endures this in duties,
+                    indeed here are the difficulties</p>
+            </div>
+            <!-- End Section Title -->
+
+            <div class="container">
+
+                <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+
+                    <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
+                        <li data-filter="*" class="filter-active">All</li>
+                        <li data-filter=".filter-app">App</li>
+                        <li data-filter=".filter-product">Product</li>
+                        <li data-filter=".filter-branding">Branding</li>
+                        <li data-filter=".filter-books">Books</li>
+                    </ul>
+                    <!-- End Portfolio Filters -->
+
+                    <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+
+                        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+                            <div class="portfolio-content h-100">
+                                <img src="assets/img/portfolio/app-1.jpg" class="img-fluid" alt="">
+                                <div class="portfolio-info">
+                                    <h4>App 1</h4>
+                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
+                                    <a href="assets/img/portfolio/app-1.jpg" title="App 1" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Portfolio Item -->
+
+                        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
+                            <div class="portfolio-content h-100">
+                                <img src="assets/img/portfolio/product-1.jpg" class="img-fluid" alt="">
+                                <div class="portfolio-info">
+                                    <h4>Product 1</h4>
+                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
+                                    <a href="assets/img/portfolio/product-1.jpg" title="Product 1" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Portfolio Item -->
+
+                        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
+                            <div class="portfolio-content h-100">
+                                <img src="assets/img/portfolio/branding-1.jpg" class="img-fluid" alt="">
+                                <div class="portfolio-info">
+                                    <h4>Branding 1</h4>
+                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
+                                    <a href="assets/img/portfolio/branding-1.jpg" title="Branding 1" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Portfolio Item -->
+
+                        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
+                            <div class="portfolio-content h-100">
+                                <img src="assets/img/portfolio/books-1.jpg" class="img-fluid" alt="">
+                                <div class="portfolio-info">
+                                    <h4>Books 1</h4>
+                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
+                                    <a href="assets/img/portfolio/books-1.jpg" title="Branding 1" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Portfolio Item -->
+
+                        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+                            <div class="portfolio-content h-100">
+                                <img src="assets/img/portfolio/app-2.jpg" class="img-fluid" alt="">
+                                <div class="portfolio-info">
+                                    <h4>App 2</h4>
+                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
+                                    <a href="assets/img/portfolio/app-2.jpg" title="App 2" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Portfolio Item -->
+
+                        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
+                            <div class="portfolio-content h-100">
+                                <img src="assets/img/portfolio/product-2.jpg" class="img-fluid" alt="">
+                                <div class="portfolio-info">
+                                    <h4>Product 2</h4>
+                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
+                                    <a href="assets/img/portfolio/product-2.jpg" title="Product 2" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Portfolio Item -->
+
+                        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
+                            <div class="portfolio-content h-100">
+                                <img src="assets/img/portfolio/branding-2.jpg" class="img-fluid" alt="">
+                                <div class="portfolio-info">
+                                    <h4>Branding 2</h4>
+                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
+                                    <a href="assets/img/portfolio/branding-2.jpg" title="Branding 2" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Portfolio Item -->
+
+                        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
+                            <div class="portfolio-content h-100">
+                                <img src="assets/img/portfolio/books-2.jpg" class="img-fluid" alt="">
+                                <div class="portfolio-info">
+                                    <h4>Books 2</h4>
+                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
+                                    <a href="assets/img/portfolio/books-2.jpg" title="Branding 2" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Portfolio Item -->
+
+                        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+                            <div class="portfolio-content h-100">
+                                <img src="assets/img/portfolio/app-3.jpg" class="img-fluid" alt="">
+                                <div class="portfolio-info">
+                                    <h4>App 3</h4>
+                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
+                                    <a href="assets/img/portfolio/app-3.jpg" title="App 3" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Portfolio Item -->
+
+                        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
+                            <div class="portfolio-content h-100">
+                                <img src="assets/img/portfolio/product-3.jpg" class="img-fluid" alt="">
+                                <div class="portfolio-info">
+                                    <h4>Product 3</h4>
+                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
+                                    <a href="assets/img/portfolio/product-3.jpg" title="Product 3" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Portfolio Item -->
+
+                        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
+                            <div class="portfolio-content h-100">
+                                <img src="assets/img/portfolio/branding-3.jpg" class="img-fluid" alt="">
+                                <div class="portfolio-info">
+                                    <h4>Branding 3</h4>
+                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
+                                    <a href="assets/img/portfolio/branding-3.jpg" title="Branding 2" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Portfolio Item -->
+
+                        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
+                            <div class="portfolio-content h-100">
+                                <img src="assets/img/portfolio/books-3.jpg" class="img-fluid" alt="">
+                                <div class="portfolio-info">
+                                    <h4>Books 3</h4>
+                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
+                                    <a href="assets/img/portfolio/books-3.jpg" title="Branding 3" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Portfolio Item -->
+
+                    </div>
+                    <!-- End Portfolio Container -->
+
+                </div>
+
+            </div>
+
+        </section>
+        <!-- /Portfolio Section -->
+
+        <!-- Services Section -->
+        <section id="services" class="services section">
+
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+                <h2>Services</h2>
+                <p>Web Development Designing and building responsive websites using HTML, CSS, and GitHub Pages—ensuring smooth performance and clean code. UI/UX Design Creating intuitive and visually engaging user interfaces focused on user experience and
+                    accessibility. Code & Programming Support Offering solutions and custom features using Java, Python, and C to bring technical functionality into digital projects. Personal Web Hosting Helping individuals publish their online presence
+                    with GitHub Pages, ideal for portfolios, blogs, or project showcases. Want to tweak the tone or add more services as you expand your skill set? I’d be happy to help shape it further!</p>
+            </div>
+            <!-- End Section Title -->
+
+            <div class="container">
+
+                <div class="row gy-4">
+
+                    <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="100">
+                        <div class="icon flex-shrink-0"><i class="bi bi-briefcase"></i></div>
+                        <div>
+                            <h4 class="title"><a href="service-details.html" class="stretched-link">Work</a></h4>
+                            <p class="description"></p>
+                        </div>
+                    </div>
+                    <!-- End Service Item -->
+
+                    <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="200">
+                        <div class="icon flex-shrink-0"><i class="bi bi-card-checklist"></i></div>
+                        <div>
+                            <h4 class="title"><a href="service-details.html" class="stretched-link">List</a></h4>
+                            <p class="description"></p>
+                        </div>
+                    </div>
+                    <!-- End Service Item -->
+
+                    <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="300">
+                        <div class="icon flex-shrink-0"><i class="bi bi-bar-chart"></i></div>
+                        <div>
+                            <h4 class="title"><a href="service-details.html" class="stretched-link">Statics</a></h4>
+                            <p class="description"></p>
+                        </div>
+                    </div>
+                    <!-- End Service Item -->
+
+                    <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="400">
+                        <div class="icon flex-shrink-0"><i class="bi bi-binoculars"></i></div>
+                        <div>
+                            <h4 class="title"><a href="service-details.html" class="stretched-link">Eye on</a></h4>
+                            <p class="description"></p>
+                        </div>
+                    </div>
+                    <!-- End Service Item -->
+
+                    <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="500">
+                        <div class="icon flex-shrink-0"><i class="bi bi-brightness-high"></i></div>
+                        <div>
+                            <h4 class="title"><a href="service-details.html" class="stretched-link">Light</a></h4>
+                            <p class="description"></p>
+                        </div>
+                    </div>
+                    <!-- End Service Item -->
+
+                    <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="600">
+                        <div class="icon flex-shrink-0"><i class="bi bi-calendar4-week"></i></div>
+                        <div>
+                            <h4 class="title"><a href="service-details.html" class="stretched-link">Calendar</a></h4>
+                            <p class="description"></p>
+                        </div>
+                    </div>
+                    <!-- End Service Item -->
+
+                </div>
+
+            </div>
+
+        </section>
+        <!-- /Services Section -->
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="testimonials section light-background">
+
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+                <h2>Testimonials</h2>
+                <p></p>
+            </div>
+            <!-- End Section Title -->
+
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+                <div class="swiper init-swiper">
+                    <script type="application/json" class="swiper-config">
+                        {
+                            "loop": true,
+                            "speed": 600,
+                            "autoplay": {
+                                "delay": 5000
+                            },
+                            "slidesPerView": "auto",
+                            "pagination": {
+                                "el": ".swiper-pagination",
+                                "type": "bullets",
+                                "clickable": true
+                            },
+                            "breakpoints": {
+                                "320": {
+                                    "slidesPerView": 1,
+                                    "spaceBetween": 40
+                                },
+                                "1200": {
+                                    "slidesPerView": 3,
+                                    "spaceBetween": 1
+                                }
+                            }
+                        }
+                    </script>
+                    <div class="swiper-wrapper">
+
+                        <div class="swiper-slide">
+                            <div class="testimonial-item">
+                                <p>
+                                    <i class="bi bi-quote quote-icon-left"></i>
+                                    <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</span>
+                                    <i class="bi bi-quote quote-icon-right"></i>
+                                </p>
+                                <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
+                                <h3>Saul Goodman</h3>
+                                <h4>Ceo &amp; Founder</h4>
+                            </div>
+                        </div>
+                        <!-- End testimonial item -->
+
+                        <div class="swiper-slide">
+                            <div class="testimonial-item">
+                                <p>
+                                    <i class="bi bi-quote quote-icon-left"></i>
+                                    <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
+                                    <i class="bi bi-quote quote-icon-right"></i>
+                                </p>
+                                <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
+                                <h3>Sara Wilsson</h3>
+                                <h4>Designer</h4>
+                            </div>
+                        </div>
+                        <!-- End testimonial item -->
+
+                        <div class="swiper-slide">
+                            <div class="testimonial-item">
+                                <p>
+                                    <i class="bi bi-quote quote-icon-left"></i>
+                                    <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.</span>
+                                    <i class="bi bi-quote quote-icon-right"></i>
+                                </p>
+                                <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
+                                <h3>Jena Karlis</h3>
+                                <h4>Store Owner</h4>
+                            </div>
+                        </div>
+                        <!-- End testimonial item -->
+
+                        <div class="swiper-slide">
+                            <div class="testimonial-item">
+                                <p>
+                                    <i class="bi bi-quote quote-icon-left"></i>
+                                    <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.</span>
+                                    <i class="bi bi-quote quote-icon-right"></i>
+                                </p>
+                                <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
+                                <h3>Matt Brandon</h3>
+                                <h4>Freelancer</h4>
+                            </div>
+                        </div>
+                        <!-- End testimonial item -->
+
+                        <div class="swiper-slide">
+                            <div class="testimonial-item">
+                                <p>
+                                    <i class="bi bi-quote quote-icon-left"></i>
+                                    <span>Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.</span>
+                                    <i class="bi bi-quote quote-icon-right"></i>
+                                </p>
+                                <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
+                                <h3>John Larson</h3>
+                                <h4>Entrepreneur</h4>
+                            </div>
+                        </div>
+                        <!-- End testimonial item -->
+
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+
+            </div>
+
+        </section>
+        <!-- /Testimonials Section -->
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact section">
+
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+                <h2>Contact</h2>
+                <p></p>
+            </div>
+            <!-- End Section Title -->
+
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+                <div class="row gy-4">
+
+                    <div class="col-lg-5">
+
+                        <div class="info-wrap">
+                            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
+                                <i class="bi bi-geo-alt flex-shrink-0"></i>
+                                <div>
+                                    <h3>Address</h3>
+                                    <p>Bara kanthalia , Barrackpore, 700121</p>
+                                </div>
+                            </div>
+                            <!-- End Info Item -->
+
+                            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+                                <i class="bi bi-telephone flex-shrink-0"></i>
+                                <div>
+                                    <h3>Contact Us</h3>
+                                    <p>yusofislam291@gmail.com</p>
+                                </div>
+                            </div>
+                            <!-- End Info Item -->
+
+                            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+                                <i class="bi bi-envelope flex-shrink-0"></i>
+                                <div>
+                                    <h3>Email Us</h3>
+                                    <p>yusofislam291@gmail.com</p>
+                                </div>
+                            </div>
+                            <!-- End Info Item -->
+
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3679.113397723319!2d88.36894457564178!3d22.761172579357986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f89a52293de287%3A0x233f012f06af690e!2sBarrackpore%20Station%20Rd%2C%20Barrackpore%2C%20West%20Bengal%20700120!5e0!3m2!1sen!2sin!4v1751103595876!5m2!1sen!2sin"
+                                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-7">
+                        <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+                            <div class="row gy-4">
+
+                                <div class="col-md-6">
+                                    <label for="name-field" class="pb-2">Your Name</label>
+                                    <input type="text" name="name" id="name-field" class="form-control" required="">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="email-field" class="pb-2">Your Email</label>
+                                    <input type="email" class="form-control" name="email" id="email-field" required="">
+                                </div>
+
+                                <div class="col-md-12">
+                                    <label for="subject-field" class="pb-2">Subject</label>
+                                    <input type="text" class="form-control" name="subject" id="subject-field" required="">
+                                </div>
+
+                                <div class="col-md-12">
+                                    <label for="message-field" class="pb-2">Message</label>
+                                    <textarea class="form-control" name="message" rows="10" id="message-field" required=""></textarea>
+                                </div>
+
+                                <div class="col-md-12 text-center">
+                                    <div class="loading">Loading</div>
+                                    <div class="error-message"></div>
+                                    <div class="sent-message">Your message has been sent. Thank you!</div>
+
+                                    <button type="submit">Send Message</button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                    <!-- End Contact Form -->
+
+                </div>
+
+            </div>
+
+        </section>
+        <!-- /Contact Section -->
+
+    </main>
+
+    <footer id="footer" class="footer position-relative light-background">
+
+        <div class="container">
+            <div class="copyright text-center ">
+                <p>© <span>Copyright</span> <strong class="px-1 sitename">iPortfolio</strong> <span>All Rights Reserved</span></p>
+            </div>
+            <div class="credits">
+                <!-- All the links in the footer should remain intact. -->
+                <!-- You can delete the links only if you've purchased the pro version. -->
+                <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> Distributed by <a href="https://themewagon.com">ThemeWagon</a>
             </div>
         </div>
-    </section>
 
-    <section id="education">
-        <h2>Education</h2>
-        <div class="timeline" id="education-list"></div>
-    </section>
-
-    <section id="skills">
-        <h2>Skills</h2>
-        <ul class="skills" id="skills-list"></ul>
-    </section>
-
-    <section id="projects">
-        <h2>Projects</h2>
-        <div class="projects" id="projects-list"></div>
-    </section>
-
-    <section id="certificates">
-        <h2>Certificates</h2>
-        <ul class="certificates-list" id="certificates-list"></ul>
-    </section>
-
-    <section id="contact">
-        <h2>Contact Me</h2>
-        <form class="contact-form" id="contact-form">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
-            <button type="submit">Send</button>
-            <span id="form-status"></span>
-        </form>
-    </section>
-
-    <footer style="text-align:center; color:#aaa; padding:24px 0 12px 0;">
-        &copy; <span id="year"></span> Your Name. All rights reserved.
     </footer>
 
-    <script>
-        // JSON data for dynamic content
-        const data = {
-            education: [{
-                degree: "B.Tech in Computer Science",
-                institution: "Swami Vivekanda University",
-                year: "2023 - 2027"
-            }],
-            skills: [
-                "JavaScript", "Node.js", "React", "HTML5", "CSS3", "Java", "Python", "C"
-            ],
-            concepts: [
-                "Data Structures", "Algorithms", "OOP"
-            ],
-            projects: [{
-                title: "Portfolio Website",
-                description: "A personal portfolio website built with React, Node.js, and Express.",
-                link: "#",
-                image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80",
-                tags: ["React", "Node.js", "Express"]
-            }, {
-                title: "E-commerce Platform",
-                description: "Full-stack e-commerce application using MERN stack.",
-                link: "#",
-                image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80",
-                tags: ["MongoDB", "Express", "React", "Node.js"]
-            }, {
-                title: "Chat Application",
-                description: "Real-time chat app using Socket.io and Node.js.",
-                link: "#",
-                image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
-                tags: ["Socket.io", "Node.js", "WebSockets"]
-            }, {
-                title: "Task Manager API",
-                description: "RESTful API for managing tasks, built with Node.js and MongoDB.",
-                link: "#",
-                image: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80",
-                tags: ["Node.js", "MongoDB", "REST API"]
-            }],
-            certificates: [{
-                name: "JavaScript Algorithms and Data Structures",
-                issuer: "freeCodeCamp",
-                year: "2021",
-                url: "#"
-            }, {
-                name: "Node.js: The Complete Guide",
-                issuer: "Udemy",
-                year: "2022",
-                url: "#"
-            }, {
-                name: "React - The Complete Guide",
-                issuer: "Udemy",
-                year: "2022",
-                url: "#"
-            }, {
-                name: "MongoDB for Developers",
-                issuer: "MongoDB University",
-                year: "2023",
-                url: "#"
-            }]
-        };
+    <!-- Scroll Top -->
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-        // Populate Education (Timeline)
-        const eduList = document.getElementById('education-list');
-        data.education.forEach(edu => {
-            const item = document.createElement('div');
-            item.className = 'timeline-item';
-            item.innerHTML = `
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <strong>${edu.degree}</strong> - ${edu.institution} <span style="color:#aaa;">(${edu.year})</span>
-                    <div style="color:#b0b0b0; font-size:0.97em; margin-top:4px;">${edu.details}</div>
-                </div>
-            `;
-            eduList.appendChild(item);
-        });
+    <!-- Preloader -->
+    <div id="preloader"></div>
 
-        // Populate Skills
-        const skillsList = document.getElementById('skills-list');
-        data.skills.forEach(skill => {
-            const li = document.createElement('li');
-            li.textContent = skill;
-            skillsList.appendChild(li);
-        });
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/typed.js/typed.umd.js"></script>
+    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
-        // Populate Projects
-        const projectsList = document.getElementById('projects-list');
-        data.projects.forEach(proj => {
-                    const div = document.createElement('div');
-                    div.className = 'project-card';
-                    div.innerHTML = `
-                <img src="${proj.image}" alt="${proj.title}">
-                <h3>${proj.title}</h3>
-                <p>${proj.description}</p>
-                <div class="tags">
-                    ${proj.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-                </div>
-                <a href="${proj.link}" target="_blank" style="color:#4fc3f7;text-decoration:underline; margin-top:10px;">View Project</a>
-            `;
-            projectsList.appendChild(div);
-        });
+    <!-- Main JS File -->
+    <script src="assets/js/main.js"></script>
 
-        // Populate Certificates
-        const certList = document.getElementById('certificates-list');
-        data.certificates.forEach(cert => {
-            const li = document.createElement('li');
-            li.className = 'certificate-card';
-            li.innerHTML = `
-                <h4>${cert.name}</h4>
-                <p>${cert.issuer} <span style="color:#4fc3f7;">(${cert.year})</span></p>
-                <a href="${cert.url}" target="_blank" style="color:#4fc3f7;text-decoration:underline;">Show Certificate</a>
-            `;
-            certList.appendChild(li);
-        });
-
-        // Section Animation on Scroll
-        const sections = document.querySelectorAll('section');
-        function revealSections() {
-            const triggerBottom = window.innerHeight * 0.85;
-            sections.forEach(sec => {
-                const secTop = sec.getBoundingClientRect().top;
-                if (secTop < triggerBottom) {
-                    sec.classList.add('visible');
-                }
-            });
-        }
-        window.addEventListener('scroll', revealSections);
-        window.addEventListener('load', revealSections);
-
-        // Smooth scroll for nav links
-        document.querySelectorAll('nav a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href.startsWith('#')) {
-                    e.preventDefault();
-                    document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-
-        // Contact Form (Node.js backend required for real sending)
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            document.getElementById('form-status').textContent = "Sending...";
-            setTimeout(() => {
-                document.getElementById('form-status').textContent = "Message sent! (Demo only)";
-                this.reset();
-            }, 1200);
-        });
-
-        // Footer year
-        document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
 </body>
 
 </html>
